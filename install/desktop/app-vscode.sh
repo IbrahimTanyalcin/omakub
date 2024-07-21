@@ -1,5 +1,7 @@
 cd /tmp
-source ~/.local/share/omakub/get_arch.sh
+if [[ -z $UTILS_SOURCED ]]; then
+    source ~/.local/share/omakub/utils.sh
+fi
 ARCH=$(get_arch "vscode")
 if wget -O code.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-${ARCH}"; then
     sudo apt install -y ./code.deb
@@ -10,8 +12,11 @@ if wget -O code.deb "https://code.visualstudio.com/sha/download?build=stable&os=
 
     # Install default supported themes
     code --install-extension enkia.tokyo-night
+    cd -
+else
+    cd -
+    false
 fi
-cd -
 
 
 
